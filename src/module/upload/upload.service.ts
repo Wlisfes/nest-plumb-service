@@ -1,21 +1,11 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, Brackets } from 'typeorm'
+import { Brackets } from 'typeorm'
 import { isEmpty } from 'class-validator'
-import { SCompute } from '@/common/compute/compute.service'
-import { FileEntity } from '@/entity/file.entity'
-import { FileSourceEntity } from '@/entity/file.source.entity'
+import { InitService } from '@/module/init/init.service'
 import * as DTO from './upload.interface'
 
 @Injectable()
-export class UploadService extends SCompute {
-	constructor(
-		@InjectRepository(FileEntity) private readonly fileModel: Repository<FileEntity>,
-		@InjectRepository(FileSourceEntity) private readonly sourceModel: Repository<FileSourceEntity>
-	) {
-		super()
-	}
-
+export class UploadService extends InitService {
 	/**上传文件**/
 	public async FileCreate(files: Array<Express.Multer.File>) {
 		try {

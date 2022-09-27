@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common'
 import { MulterModule } from '@nestjs/platform-express'
-import { TypeOrmModule } from '@nestjs/typeorm'
 import { diskStorage } from 'multer'
-import { FileEntity } from '@/entity/file.entity'
-import { FileSourceEntity } from '@/entity/file.source.entity'
 import { UploadController } from './upload.controller'
 import { UploadService } from './upload.service'
 import * as path from 'path'
 
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([FileEntity, FileSourceEntity]),
 		MulterModule.register({
 			storage: diskStorage({
 				destination: (req, file, cb) => {

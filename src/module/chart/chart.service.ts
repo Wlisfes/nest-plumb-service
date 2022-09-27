@@ -1,26 +1,20 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository, Brackets } from 'typeorm'
+import { Brackets } from 'typeorm'
 import { InitService } from '@/module/init/init.service'
-import { ChartEntity } from '@/entity/chart.entity'
-import { BlockEntity } from '@/entity/block.entity'
-import { BezierEntity } from '@/entity/bezier.entity'
 import * as DTO from './chart.interface'
 
 @Injectable()
-export class ChartService {
-	constructor(private readonly service: InitService) {}
-
+export class ChartService extends InitService {
 	/**创建流程图**/
 	public async httpCreateChart(props: DTO.CreateChart) {
 		try {
-			const node = await this.service.chartModel.create({
+			const node = await this.chartModel.create({
 				title: props.title,
 				status: 1,
 				core: props.core ?? {},
 				axis: props.axis ?? {}
 			})
-			return await this.service.chartModel.save(node)
+			return await this.chartModel.save(node)
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
 		}
@@ -29,7 +23,7 @@ export class ChartService {
 	/**修改流程图**/
 	public async httpUpdateChart(props: DTO.UpdateChart) {
 		try {
-			const node = await this.service.validator({
+			const node = await this.validator({
 				message: '流程图',
 				empty: true,
 				close: true,
