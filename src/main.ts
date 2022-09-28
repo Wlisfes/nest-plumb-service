@@ -14,7 +14,11 @@ async function useSwagger(app: NestExpressApplication) {
 		// .addBearerAuth({ type: 'apiKey', name: APP_AUTH_TOKEN, in: 'header' }, APP_AUTH_TOKEN)
 		.build()
 	const document = SwaggerModule.createDocument(app, options)
-	SwaggerModule.setup('api-doc', app, document)
+	SwaggerModule.setup('api-doc', app, document, {
+		swaggerOptions: {
+			defaultModelsExpandDepth: -1
+		}
+	})
 	return app
 }
 

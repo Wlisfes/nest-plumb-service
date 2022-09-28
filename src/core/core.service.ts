@@ -3,7 +3,7 @@ import * as DTO from './core.interface'
 
 @Injectable()
 export class CoreService {
-	/**验证某个数据模型是否有效**/
+	/**验证数据模型是否有效**/
 	public async validator<Entity>(props: DTO.NValidator<Entity>): Promise<Entity> {
 		try {
 			const node = await props.model.findOne(props.options)

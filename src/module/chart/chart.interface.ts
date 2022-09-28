@@ -1,10 +1,9 @@
-import { ApiProperty, ApiPropertyOptional, PickType } from '@nestjs/swagger'
+import { ApiProperty, PickType } from '@nestjs/swagger'
 import { IsNotEmpty } from 'class-validator'
-import { CommonQuery } from '@/interface/common.interface'
+import { ICommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
-import { Type } from 'class-transformer'
 
-export class ChartEntity extends PickType(CommonQuery, ['id', 'uid', 'status', 'createTime', 'updateTime']) {
+export class ChartEntity extends PickType(ICommon, ['id', 'uid', 'status', 'createTime', 'updateTime']) {
 	@ApiProperty({ description: '流程图标题', example: '刀剑神域' })
 	@IsNotEmpty({ message: '流程图标题 必填' })
 	title: string

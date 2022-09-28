@@ -12,7 +12,7 @@ export class UploadService extends CoreService {
 	}
 
 	/**上传文件**/
-	public async FileCreate(files: Array<Express.Multer.File>) {
+	public async fileCreate(files: Array<Express.Multer.File>) {
 		try {
 			if (files.length === 0) {
 				throw new HttpException('File 不能为空', HttpStatus.BAD_REQUEST)
@@ -39,15 +39,14 @@ export class UploadService extends CoreService {
 	}
 
 	/**文件列表**/
-	public async FileList(props: DTO.FileListQuery) {
+	public async fileColumn(props: DTO.IColumn) {
 		try {
 			const [list = [], total = 0] = await this.entity.fileModel
 				.createQueryBuilder('t')
-				.leftJoinAndSelect('t.source', 'source')
 				.where(
 					new Brackets(Q => {
-						if (!isEmpty(props.name)) {
-							Q.andWhere('source.name = :name', { name: props.name })
+						if (!isEmpty(props.suffix)) {
+							Q.andWhere('t.suffix = :suffix', { suffix: props.suffix })
 						}
 					})
 				)
@@ -61,7 +60,7 @@ export class UploadService extends CoreService {
 	}
 
 	/**文件详情**/
-	public async FileMatter(props: DTO.MatterQuery) {
+	public async fileOne(props: DTO.IOne) {
 		try {
 			return await this.validator({
 				message: '文件',

@@ -1,6 +1,7 @@
 import { Controller, Post, Get, Query, UploadedFiles, UseInterceptors } from '@nestjs/common'
-import { ApiTags, ApiOperation, ApiConsumes, ApiProduces, ApiResponse } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { AnyFilesInterceptor } from '@nestjs/platform-express'
+import { ApiCompute } from '@/decorator/compute.decorator'
 import { UploadService } from './upload.service'
 import { ApiMultipleFile } from '@/decorator/file.decorator'
 import * as DTO from './upload.interface'
@@ -10,28 +11,32 @@ import * as DTO from './upload.interface'
 export class UploadController {
 	constructor(private readonly uploadService: UploadService) {}
 
-	@ApiOperation({ summary: '上传文件' })
-	@ApiMultipleFile()
 	@Post('/file-create')
+	@ApiMultipleFile()
 	@UseInterceptors(AnyFilesInterceptor())
-	@ApiResponse({ status: 200, description: 'OK', type: [DTO.FileCreateResult] })
-	public async FileCreate(@UploadedFiles() files: Array<Express.Multer.File> = []) {
-		return await this.uploadService.FileCreate(files)
+	@ApiCompute({
+		operation: { summary: '上传文件' },
+		response: { status: 200, description: 'OK', type: DTO.IUpload }
+	})
+	public async fileCreate(@UploadedFiles() files: Array<Express.Multer.File> = []) {
+		return await this.uploadService.fileCreate(files)
 	}
 
-	@ApiOperation({ summary: '文件列表' })
-	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-	@ApiProduces('application/json', 'application/xml')
-	@Get('/file-list')
-	public async FileList(@Query() query: DTO.FileListQuery) {
-		return await this.uploadService.FileList(query)
+	@Get('/file-column')
+	@ApiCompute({
+		operation: { summary: '文件列表' },
+		response: { status: 200, description: 'OK', type: DTO.RColumn }
+	})
+	public async fileColumn(@Query() query: DTO.IColumn) {
+		return await this.uploadService.fileColumn(query)
 	}
 
-	@ApiOperation({ summary: '文件详情' })
-	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-	@ApiProduces('application/json', 'application/xml')
-	@Get('/file-matter')
-	public async FileMatter(@Query() query: DTO.MatterQuery) {
-		return await this.uploadService.FileMatter(query)
+	@Get('/file-one')
+	@ApiCompute({
+		operation: { summary: '文件详情' },
+		response: { status: 200, description: 'OK', type: DTO.IUpload }
+	})
+	public async fileOne(@Query() query: DTO.IOne) {
+		return await this.uploadService.fileOne(query)
 	}
 }

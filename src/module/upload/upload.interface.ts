@@ -1,9 +1,8 @@
 import { ApiProperty, ApiPropertyOptional, PickType } from '@nestjs/swagger'
-import { IsNotEmpty } from 'class-validator'
-import { CommonQuery } from '@/interface/common.interface'
+import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
 
-export class FileEntity extends PickType(CommonQuery, ['id', 'createTime', 'updateTime']) {
+export class IUpload extends PickType(ICommon, ['id', 'createTime', 'updateTime']) {
 	@ApiProperty({ description: '文件路径' })
 	path: string
 
@@ -23,27 +22,16 @@ export class FileEntity extends PickType(CommonQuery, ['id', 'createTime', 'upda
 	suffix: string
 }
 
-/**
- * 上传文件
- **/
-export class FileCreateResult extends FileEntity {}
-
-/**
- * 文件列表
- **/
-export class FileListQuery extends PickType(CommonQuery, ['page', 'size']) {
+/**文件列表**/
+export class IColumn extends PickType(ICommon, ['page', 'size']) {
 	@ApiPropertyOptional({ description: '文件类型', example: 'jpg' })
 	@IsOptional({}, { string: true, number: true })
-	name: string
+	suffix: string
+}
+export class RColumn extends PickType(RCommon, ['page', 'size', 'total']) {
+	@ApiProperty({ description: '列表', type: [IUpload], example: [] })
+	list: Array<IUpload>
 }
 
-/**
- * 文件类型列表
- **/
-export class FileSourceQuery extends PickType(CommonQuery, ['page', 'size']) {}
-
-/**
- * 文件详情
- * 文件类型详情
- **/
-export class MatterQuery extends PickType(CommonQuery, ['id']) {}
+/**文件详情**/
+export class IOne extends PickType(ICommon, ['id']) {}
