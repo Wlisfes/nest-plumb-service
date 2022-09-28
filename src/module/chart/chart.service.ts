@@ -1,20 +1,26 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { Brackets } from 'typeorm'
-import { InitService } from '@/module/init/init.service'
+import { isEmpty } from 'class-validator'
+import { CoreService } from '@/core/core.service'
+import { EntityService } from '@/core/entity.service'
 import * as DTO from './chart.interface'
 
 @Injectable()
-export class ChartService extends InitService {
+export class ChartService extends CoreService {
+	constructor(private readonly entity: EntityService) {
+		super()
+	}
+
 	/**创建流程图**/
 	public async httpCreateChart(props: DTO.CreateChart) {
 		try {
-			const node = await this.chartModel.create({
+			const node = await this.entity.chartModel.create({
 				title: props.title,
 				status: 1,
 				core: props.core ?? {},
 				axis: props.axis ?? {}
 			})
-			return await this.chartModel.save(node)
+			return await this.entity.chartModel.save(node)
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
 		}
@@ -27,10 +33,10 @@ export class ChartService extends InitService {
 				message: '流程图',
 				empty: true,
 				close: true,
-				model: this.chartModel,
+				model: this.entity.chartModel,
 				options: { where: { uid: props.uid } }
 			})
-			return await this.chartModel.update(
+			return await this.entity.chartModel.update(
 				{ id: node.id },
 				{
 					title: props.title ?? node.title,
@@ -51,7 +57,7 @@ export class ChartService extends InitService {
 				message: '流程图',
 				empty: true,
 				close: true,
-				model: this.chartModel,
+				model: this.entity.chartModel,
 				options: {
 					where: { uid: props.uid },
 					relations: ['column', 'bezier']
@@ -69,10 +75,10 @@ export class ChartService extends InitService {
 				message: '流程图',
 				empty: true,
 				close: true,
-				model: this.chartModel,
+				model: this.entity.chartModel,
 				options: { where: { uid: props.chart } }
 			})
-			const node = await this.blockModel.create({
+			const node = await this.entity.blockModel.create({
 				status: 1,
 				title: props.title,
 				left: props.left,
@@ -81,7 +87,7 @@ export class ChartService extends InitService {
 				rules: props.rules ?? [],
 				chart
 			})
-			return await this.blockModel.save(node)
+			return await this.entity.blockModel.save(node)
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
 		}
@@ -94,10 +100,10 @@ export class ChartService extends InitService {
 				message: '流程图',
 				empty: true,
 				close: true,
-				model: this.chartModel,
+				model: this.entity.chartModel,
 				options: { where: { uid: props.chart } }
 			})
-			const node = await this.bezierModel.create({
+			const node = await this.entity.bezierModel.create({
 				status: 1,
 				title: props.title,
 				source: props.source,
@@ -105,7 +111,7 @@ export class ChartService extends InitService {
 				node: props.node ?? {},
 				chart
 			})
-			return await this.bezierModel.save(node)
+			return await this.entity.bezierModel.save(node)
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
 		}

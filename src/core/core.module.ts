@@ -1,13 +1,15 @@
 import { Module, Global } from '@nestjs/common'
-import { InitService } from './init.service'
-import { UploadModule } from '@/module/upload/upload.module'
-import { ChartModule } from '@/module/chart/chart.module'
-
+import { CoreService } from './core.service'
+import { EntityService } from './entity.service'
+//entity
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ChartEntity } from '@/entity/chart.entity'
 import { BlockEntity } from '@/entity/block.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 import { FileEntity } from '@/entity/file.entity'
+//module
+import { UploadModule } from '@/module/upload/upload.module'
+import { ChartModule } from '@/module/chart/chart.module'
 
 @Global()
 @Module({
@@ -16,7 +18,7 @@ import { FileEntity } from '@/entity/file.entity'
 		UploadModule,
 		ChartModule
 	],
-	providers: [InitService],
-	exports: [InitService]
+	providers: [CoreService, EntityService],
+	exports: [CoreService, EntityService]
 })
-export class InitModule {}
+export class CoreModule {}

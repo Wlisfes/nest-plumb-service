@@ -1,11 +1,16 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { Brackets } from 'typeorm'
 import { isEmpty } from 'class-validator'
-import { InitService } from '@/module/init/init.service'
+import { CoreService } from '@/core/core.service'
+import { EntityService } from '@/core/entity.service'
 import * as DTO from './upload.interface'
 
 @Injectable()
-export class UploadService extends InitService {
+export class UploadService extends CoreService {
+	constructor(private readonly entity: EntityService) {
+		super()
+	}
+
 	/**上传文件**/
 	public async FileCreate(files: Array<Express.Multer.File>) {
 		try {
@@ -16,14 +21,14 @@ export class UploadService extends InitService {
 				while (files.length) {
 					const item = files.shift()
 					const suffix = item.originalname.split('.').pop()?.toLowerCase()
-					const newFile = await this.fileModel.create({
+					const newFile = await this.entity.fileModel.create({
 						name: item.originalname,
 						rename: item.filename,
 						size: item.size,
 						path: `${item.destination.replace('./public', '')}/${item.filename}`,
 						suffix: suffix
 					})
-					const saveFile = await this.fileModel.save(newFile)
+					const saveFile = await this.entity.fileModel.save(newFile)
 					response.push(saveFile)
 				}
 				return response
@@ -36,7 +41,7 @@ export class UploadService extends InitService {
 	/**文件列表**/
 	public async FileList(props: DTO.FileListQuery) {
 		try {
-			const [list = [], total = 0] = await this.fileModel
+			const [list = [], total = 0] = await this.entity.fileModel
 				.createQueryBuilder('t')
 				.leftJoinAndSelect('t.source', 'source')
 				.where(
@@ -62,7 +67,7 @@ export class UploadService extends InitService {
 				message: '文件',
 				empty: true,
 				close: true,
-				model: this.fileModel,
+				model: this.entity.fileModel,
 				options: { where: { id: props.id } }
 			})
 		} catch (e) {

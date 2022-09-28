@@ -6,7 +6,7 @@ import { TransformInterceptor } from '@/interceptor/transform.interceptor'
 import { HttpExceptionFilter } from '@/filter/http-exception.filter'
 import { AppController } from '@/app.controller'
 import { AppService } from '@/app.service'
-import { InitModule } from '@/module/init/init.module'
+import { CoreModule } from '@/core/core.module'
 
 @Module({
 	imports: [
@@ -35,7 +35,7 @@ import { InitModule } from '@/module/init/init.module'
 				}
 			}
 		}),
-		InitModule
+		CoreModule
 	],
 	controllers: [AppController],
 	providers: [
