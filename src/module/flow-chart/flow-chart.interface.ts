@@ -19,9 +19,14 @@ export class IChart extends OmitType(ICommon, ['page', 'size', 'total']) {
 	@IsOptional()
 	axis: Object
 }
+export class RChart extends PickType(RCommon, ['page', 'size', 'total']) {
+	@ApiProperty({ description: '列表', type: [IChart], example: [] })
+	list: Array<IChart>
+}
 
 export class IChartCreate extends PickType(IChart, ['title', 'core', 'axis']) {}
 export class IChartUpdate extends PickType(IChart, ['uid', 'title', 'core', 'axis', 'status']) {}
+export class IChartColumn extends PickType(ICommon, ['page', 'size']) {}
 export class IChartOne extends PickType(IChart, ['uid']) {}
 
 /******************************************************************/

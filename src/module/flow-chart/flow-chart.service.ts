@@ -50,6 +50,20 @@ export class FlowChartService extends CoreService {
 		}
 	}
 
+	/**流程图列表**/
+	public async httpColumnChart(props: DTO.IChartColumn) {
+		try {
+			const [list = [], total = 0] = await this.entity.chartModel.findAndCount({
+				order: { createTime: 'DESC' },
+				skip: (props.page - 1) * props.size,
+				take: props.size
+			})
+			return { list, total, page: props.page, size: props.size }
+		} catch (e) {
+			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
+		}
+	}
+
 	/**流程图信息**/
 	public async httpOneChart(props: DTO.IChartOne) {
 		try {
@@ -59,7 +73,8 @@ export class FlowChartService extends CoreService {
 				close: true,
 				model: this.entity.chartModel,
 				options: {
-					where: { uid: props.uid }
+					where: { uid: props.uid },
+					relations: ['chunk', 'bezier']
 				}
 			})
 		} catch (e) {

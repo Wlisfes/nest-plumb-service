@@ -34,6 +34,15 @@ export class FlowChartController {
 		return await this.chartService.httpChartUpdate(body)
 	}
 
+	@Get('/column')
+	@ApiCompute({
+		operation: { summary: '流程图列表' },
+		response: { status: 200, description: 'OK', type: DTO.RChart }
+	})
+	public async httpColumnChart(@Query() query: DTO.IChartColumn) {
+		return await this.chartService.httpColumnChart(query)
+	}
+
 	@Get('/one')
 	@ApiCompute({
 		operation: { summary: '流程图详情' },
