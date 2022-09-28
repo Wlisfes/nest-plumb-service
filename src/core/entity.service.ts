@@ -11,7 +11,7 @@ export class EntityService {
 	constructor(
 		@InjectRepository(FileEntity) public readonly fileModel: Repository<FileEntity>,
 		@InjectRepository(ChartEntity) public readonly chartModel: Repository<ChartEntity>,
-		@InjectRepository(ChunkEntity) public readonly blockModel: Repository<ChunkEntity>,
+		@InjectRepository(ChunkEntity) public readonly chunkModel: Repository<ChunkEntity>,
 		@InjectRepository(BezierEntity) public readonly bezierModel: Repository<BezierEntity>
 	) {}
 }

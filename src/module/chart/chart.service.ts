@@ -78,7 +78,7 @@ export class ChartService extends CoreService {
 				model: this.entity.chartModel,
 				options: { where: { uid: props.chart } }
 			})
-			const node = await this.entity.blockModel.create({
+			const node = await this.entity.chunkModel.create({
 				status: 1,
 				title: props.title,
 				left: props.left,
@@ -87,7 +87,7 @@ export class ChartService extends CoreService {
 				rules: props.rules ?? [],
 				chart
 			})
-			return await this.entity.blockModel.save(node)
+			return await this.entity.chunkModel.save(node)
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
 		}
