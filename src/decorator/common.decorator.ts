@@ -1,4 +1,4 @@
-import { ValidateIf, ValidationOptions, buildMessage, ValidateBy } from 'class-validator'
+import { ValidateIf, ValidationOptions, buildMessage, ValidateBy, ValidationArguments } from 'class-validator'
 
 /**自定义装饰器-验证空值**/
 export function IsOptional(validationOptions?: ValidationOptions, props?: { string?: boolean; number?: boolean }) {
@@ -33,4 +33,18 @@ export function IsMobile(validationOptions?: ValidationOptions) {
 		},
 		validationOptions
 	)
+}
+
+/**自定义装饰器**/
+export function IsCustomize(option: {
+	validate(value: any, args: ValidationArguments): Promise<boolean> | boolean
+	message(prefix: string, args: ValidationArguments): string
+}) {
+	return ValidateBy({
+		name: 'isCustomize',
+		validator: {
+			validate: option.validate,
+			defaultMessage: buildMessage(option.message)
+		}
+	})
 }
