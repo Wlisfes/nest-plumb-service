@@ -4,7 +4,7 @@ import { EntityService } from './entity.service'
 //entity
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ChartEntity } from '@/entity/chart.entity'
-import { BlockEntity } from '@/entity/block.entity'
+import { ChunkEntity } from '@/entity/chunk.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 import { FileEntity } from '@/entity/file.entity'
 //module
@@ -14,7 +14,7 @@ import { FlowChartModule } from '@/module/flow-chart/flow-chart.module'
 @Global()
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([ChartEntity, BlockEntity, BezierEntity, FileEntity]),
+		TypeOrmModule.forFeature([ChartEntity, ChunkEntity, BezierEntity, FileEntity]),
 		UploadModule,
 		FlowChartModule
 	],

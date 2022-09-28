@@ -1,6 +1,6 @@
 import { Entity, Column, OneToMany } from 'typeorm'
 import { UEntity } from '@/entity/common.entity'
-import { BlockEntity } from '@/entity/block.entity'
+import { ChunkEntity } from '@/entity/chunk.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 
 @Entity('chart')
@@ -25,8 +25,8 @@ export class ChartEntity extends UEntity {
 	})
 	axis: Object
 
-	@OneToMany(() => BlockEntity, type => type.chart)
-	column: BlockEntity[]
+	@OneToMany(() => ChunkEntity, type => type.chart)
+	chunk: ChunkEntity[]
 
 	@OneToMany(() => BezierEntity, type => type.chart)
 	bezier: BezierEntity[]

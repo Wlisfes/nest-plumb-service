@@ -2,8 +2,8 @@ import { Entity, Column, ManyToOne } from 'typeorm'
 import { UEntity } from '@/entity/common.entity'
 import { ChartEntity } from '@/entity/chart.entity'
 
-@Entity('block')
-export class BlockEntity extends UEntity {
+@Entity('chunk')
+export class ChunkEntity extends UEntity {
 	@Column({ nullable: false, comment: '流程块标题' })
 	title: string
 

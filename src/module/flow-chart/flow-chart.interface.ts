@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional, PickType } from '@nestjs/swagger'
+import { ApiProperty, PickType } from '@nestjs/swagger'
 import { IsNotEmpty } from 'class-validator'
 import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional, IsCustomize } from '@/decorator/common.decorator'
@@ -20,4 +20,4 @@ export class IChart extends PickType(ICommon, ['id', 'uid', 'status', 'createTim
 	axis: Object
 }
 
-export class IChartCreate extends PickType(IChart, ['title', 'core']) {}
+export class IChartCreate extends PickType(IChart, ['title', 'core', 'axis']) {}

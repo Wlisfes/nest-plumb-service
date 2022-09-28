@@ -2,12 +2,18 @@ import { Controller, Post, Body } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { ApiCompute } from '@/decorator/compute.decorator'
 import { FlowChartService } from './flow-chart.service'
+import { ChunkService } from './chunk.service'
+import { BezierService } from './bezier.service'
 import * as DTO from './flow-chart.interface'
 
 @ApiTags('流程图模块')
 @Controller('flow-chart')
 export class FlowChartController {
-	constructor(private readonly flowChartService: FlowChartService) {}
+	constructor(
+		private readonly chartService: FlowChartService,
+		private readonly chunkService: ChunkService,
+		private readonly bezierService: BezierService
+	) {}
 
 	@Post('/create')
 	@ApiCompute({
