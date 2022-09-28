@@ -1,21 +1,18 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import * as DTO from './init.interface'
 
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
+import { Repository, getRepository } from 'typeorm'
 import { ChartEntity } from '@/entity/chart.entity'
 import { BlockEntity } from '@/entity/block.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 import { FileEntity } from '@/entity/file.entity'
-import { FileSourceEntity } from '@/entity/file.source.entity'
 
 @Injectable()
 export class InitService {
-	@InjectRepository(ChartEntity) public readonly chartModel: Repository<ChartEntity>
-	@InjectRepository(BlockEntity) public readonly blockModel: Repository<BlockEntity>
-	@InjectRepository(BezierEntity) public readonly bezierModel: Repository<BezierEntity>
-	@InjectRepository(FileEntity) public readonly fileModel: Repository<FileEntity>
-	@InjectRepository(FileSourceEntity) public readonly sourceModel: Repository<FileSourceEntity>
+	public readonly chartModel: Repository<ChartEntity> = getRepository(ChartEntity)
+	public readonly blockModel: Repository<BlockEntity> = getRepository(BlockEntity)
+	public readonly bezierModel: Repository<BezierEntity> = getRepository(BezierEntity)
+	public readonly fileModel: Repository<FileEntity> = getRepository(FileEntity)
 
 	/**验证某个数据模型是否有效**/
 	public async validator<Entity>(props: DTO.NValidator<Entity>): Promise<Entity> {

@@ -27,35 +27,11 @@ export class UploadController {
 		return await this.uploadService.FileList(query)
 	}
 
-	@ApiOperation({ summary: '文件类型列表' })
-	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-	@ApiProduces('application/json', 'application/xml')
-	@Get('/file-source')
-	public async FileSource(@Query() query: DTO.FileSourceQuery) {
-		return await this.uploadService.FileSource(query)
-	}
-
 	@ApiOperation({ summary: '文件详情' })
 	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
 	@ApiProduces('application/json', 'application/xml')
 	@Get('/file-matter')
 	public async FileMatter(@Query() query: DTO.MatterQuery) {
 		return await this.uploadService.FileMatter(query)
-	}
-
-	@ApiOperation({ summary: '文件类型详情' })
-	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-	@ApiProduces('application/json', 'application/xml')
-	@Get('/source-matter')
-	public async SourceMatter(@Query() query: DTO.MatterQuery) {
-		return await this.uploadService.SourceMatter(query)
-	}
-
-	@ApiOperation({ summary: '文件鉴权' })
-	@ApiConsumes('application/x-www-form-urlencoded', 'application/json')
-	@ApiProduces('application/json', 'application/xml')
-	@Get('/file-auth')
-	public async FileAuth(@Query() query: DTO.FileAuthQuery) {
-		return await this.uploadService.FileAuth(query)
 	}
 }

@@ -8,14 +8,13 @@ import { ChartEntity } from '@/entity/chart.entity'
 import { BlockEntity } from '@/entity/block.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 import { FileEntity } from '@/entity/file.entity'
-import { FileSourceEntity } from '@/entity/file.source.entity'
 
 @Global()
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([ChartEntity, BlockEntity, BezierEntity, FileEntity, FileSourceEntity])
-		// UploadModule,
-		// ChartModule
+		TypeOrmModule.forFeature([ChartEntity, BlockEntity, BezierEntity, FileEntity]),
+		UploadModule,
+		ChartModule
 	],
 	providers: [InitService],
 	exports: [InitService]
