@@ -1,4 +1,4 @@
-import { ApiProperty, PickType, OmitType, IntersectionType } from '@nestjs/swagger'
+import { ApiProperty, PickType, OmitType } from '@nestjs/swagger'
 import { IsNotEmpty, IsArray, ValidateNested } from 'class-validator'
 import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
@@ -18,15 +18,16 @@ export class IChart extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '刻度线配置', example: { x: true, y: true } })
 	@IsOptional()
 	axis: Object
-}
-export class RChart extends IntersectionType(IChart, IChart) {
+
 	@ApiProperty({ description: '流程块列表', type: () => [IChunk], example: [] })
-	chunk: Array<IChunk>
+	chunk: IChunk[]
 
 	@ApiProperty({ description: '连接线列表', type: () => [IBezier], example: [] })
-	bezier: Array<IBezier>
-	// @ApiProperty({ description: '列表', type: [IChart], example: [] })
-	// list: Array<IChart>
+	bezier: IBezier[]
+}
+export class RChart extends PickType(RCommon, ['page', 'size', 'total']) {
+	@ApiProperty({ description: '列表', type: [OmitType(IChart, ['chunk', 'bezier'])], example: [] })
+	list: IChart[]
 }
 
 export class IChartCreate extends PickType(IChart, ['title', 'core', 'axis']) {}
