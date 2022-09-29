@@ -8,15 +8,18 @@ import * as history from 'connect-history-api-fallback'
 
 async function useSwagger(app: NestExpressApplication) {
 	const options = new DocumentBuilder()
-		.setTitle('Nest-Service')
-		.setDescription('Nest-Service Api Documentation')
+		.setTitle('Nest-Plumb-Service')
+		.setDescription('Nest-Plumb-Service Api Documentation')
 		.setVersion('1.0')
 		// .addBearerAuth({ type: 'apiKey', name: APP_AUTH_TOKEN, in: 'header' }, APP_AUTH_TOKEN)
 		.build()
 	const document = SwaggerModule.createDocument(app, options)
 	SwaggerModule.setup('api-doc', app, document, {
+		customSiteTitle: '流程图服务端API文档',
 		swaggerOptions: {
-			defaultModelsExpandDepth: -1
+			defaultModelsExpandDepth: -1,
+			defaultModelExpandDepth: 5,
+			filter: true
 		}
 	})
 	return app

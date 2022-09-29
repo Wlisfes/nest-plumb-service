@@ -1,7 +1,7 @@
 import { Controller, Post, Put, Get, Body, Query } from '@nestjs/common'
 import { ApiTags, PickType } from '@nestjs/swagger'
 import { ApiCompute } from '@/decorator/compute.decorator'
-import { ICommon, RCommon } from '@/interface/common.interface'
+import { RCommon } from '@/interface/common.interface'
 import { FlowChartService } from './flow-chart.service'
 import { ChunkService } from './chunk.service'
 import { BezierService } from './bezier.service'
@@ -46,7 +46,7 @@ export class FlowChartController {
 	@Get('/one')
 	@ApiCompute({
 		operation: { summary: '流程图详情' },
-		response: { status: 200, description: 'OK', type: DTO.IChart }
+		response: { status: 200, description: 'OK', type: DTO.RChart }
 	})
 	public async httpChartOne(@Query() query: DTO.IChartOne) {
 		return await this.chartService.httpOneChart(query)

@@ -42,9 +42,6 @@ export class ICommon {
 	@IsNumber({}, { message: 'status 必须是数字' })
 	@Type(type => Number)
 	status: number
-
-	@ApiProperty({ description: '总数', example: 0 })
-	total: number
 }
 
 export class RCommon {

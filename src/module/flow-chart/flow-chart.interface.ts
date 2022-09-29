@@ -1,9 +1,9 @@
-import { ApiProperty, PickType, OmitType } from '@nestjs/swagger'
+import { ApiProperty, PickType, OmitType, IntersectionType } from '@nestjs/swagger'
 import { IsNotEmpty, IsArray, ValidateNested } from 'class-validator'
 import { ICommon, RCommon } from '@/interface/common.interface'
-import { IsOptional, IsCustomize } from '@/decorator/common.decorator'
+import { IsOptional } from '@/decorator/common.decorator'
 
-export class IChart extends OmitType(ICommon, ['page', 'size', 'total']) {
+export class IChart extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '流程图标题', example: '刀剑神域' })
 	@IsNotEmpty({ message: '流程图标题 必填' })
 	title: string
@@ -19,9 +19,14 @@ export class IChart extends OmitType(ICommon, ['page', 'size', 'total']) {
 	@IsOptional()
 	axis: Object
 }
-export class RChart extends PickType(RCommon, ['page', 'size', 'total']) {
-	@ApiProperty({ description: '列表', type: [IChart], example: [] })
-	list: Array<IChart>
+export class RChart extends IntersectionType(IChart, IChart) {
+	@ApiProperty({ description: '流程块列表', type: () => [IChunk], example: [] })
+	chunk: Array<IChunk>
+
+	@ApiProperty({ description: '连接线列表', type: () => [IBezier], example: [] })
+	bezier: Array<IBezier>
+	// @ApiProperty({ description: '列表', type: [IChart], example: [] })
+	// list: Array<IChart>
 }
 
 export class IChartCreate extends PickType(IChart, ['title', 'core', 'axis']) {}
@@ -30,7 +35,7 @@ export class IChartColumn extends PickType(ICommon, ['page', 'size']) {}
 export class IChartOne extends PickType(IChart, ['uid']) {}
 
 /******************************************************************/
-export class IChunk extends OmitType(ICommon, ['page', 'size', 'total']) {
+export class IChunk extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '流程图uid', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
 	@IsNotEmpty({ message: '流程图uid 必填' })
 	chart: string
@@ -63,7 +68,7 @@ export class IChunkUpdate extends PickType(IChunk, ['uid', 'title', 'left', 'top
 export class IChunkOne extends PickType(IChunk, ['uid']) {}
 
 /******************************************************************/
-export class IBezier extends OmitType(ICommon, ['page', 'size', 'total']) {
+export class IBezier extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '流程图uid', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
 	@IsNotEmpty({ message: '流程图uid 必填' })
 	chart: string
