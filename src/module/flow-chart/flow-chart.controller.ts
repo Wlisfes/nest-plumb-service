@@ -48,7 +48,7 @@ export class FlowChartController {
 		operation: { summary: '流程图详情' },
 		response: { status: 200, description: 'OK', type: DTO.IChart }
 	})
-	public async httpChartOne(@Query() query: DTO.IChartOne) {
+	public async httpOneChart(@Query() query: DTO.IChartOne) {
 		return await this.chartService.httpOneChart(query)
 	}
 
