@@ -1,12 +1,18 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { CoreService } from '@/core/core.service'
 import { EntityService } from '@/core/entity.service'
+import { RedisService } from '@/core/redis.service'
 import * as DTO from './bezier.interface'
 
 @Injectable()
 export class BezierService extends CoreService {
-	constructor(private readonly entity: EntityService) {
+	constructor(private readonly entity: EntityService, private readonly redis: RedisService) {
 		super()
+		this.redis.subscribe('bezier').then(observer => {
+			observer.on('message', e => {
+				console.log('chart', e)
+			})
+		})
 	}
 
 	/**创建连接线**/

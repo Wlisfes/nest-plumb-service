@@ -1,12 +1,18 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { CoreService } from '@/core/core.service'
 import { EntityService } from '@/core/entity.service'
+import { RedisService } from '@/core/redis.service'
 import * as DTO from './flow-chart.interface'
 
 @Injectable()
 export class FlowChartService extends CoreService {
-	constructor(private readonly entity: EntityService) {
+	constructor(private readonly entity: EntityService, private readonly redis: RedisService) {
 		super()
+		this.redis.subscribe('user').then(observer => {
+			observer.on('message', e => {
+				console.log('chart', e)
+			})
+		})
 	}
 
 	/**创建流程图**/
@@ -58,6 +64,7 @@ export class FlowChartService extends CoreService {
 				skip: (props.page - 1) * props.size,
 				take: props.size
 			})
+			await this.redis.setStore('user', { name: '猪头' }, 5)
 			return { list, total, page: props.page, size: props.size }
 		} catch (e) {
 			throw new HttpException(e.message || e.toString(), HttpStatus.BAD_REQUEST)
