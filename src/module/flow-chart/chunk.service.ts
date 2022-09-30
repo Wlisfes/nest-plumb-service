@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { CoreService } from '@/core/core.service'
 import { EntityService } from '@/core/entity.service'
-import * as DTO from './flow-chart.interface'
+import * as DTO from './chunk.interface'
 
 @Injectable()
 export class ChunkService extends CoreService {
@@ -10,7 +10,7 @@ export class ChunkService extends CoreService {
 	}
 
 	/**创建节点块**/
-	public async httpChunkCreate(props: DTO.IChunkCreate) {
+	public async httpCreateChunk(props: DTO.ICreate) {
 		try {
 			const chart = await this.validator({
 				message: '流程图',
@@ -36,7 +36,7 @@ export class ChunkService extends CoreService {
 	}
 
 	/**修改节点块**/
-	public async httpChunkUpdate(props: DTO.IChunkUpdate) {
+	public async httpUpdateChunk(props: DTO.IUpdate) {
 		try {
 			const node = await this.validator({
 				message: '节点块',
@@ -62,7 +62,7 @@ export class ChunkService extends CoreService {
 	}
 
 	/**节点块信息**/
-	public async httpOneChunk(props: DTO.IChunkOne) {
+	public async httpOneChunk(props: DTO.IOne) {
 		try {
 			return this.validator({
 				message: '节点块',

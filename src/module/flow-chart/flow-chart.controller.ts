@@ -5,7 +5,9 @@ import { RCommon } from '@/interface/common.interface'
 import { FlowChartService } from './flow-chart.service'
 import { ChunkService } from './chunk.service'
 import { BezierService } from './bezier.service'
-import * as DTO from './flow-chart.interface'
+import * as Chart from './flow-chart.interface'
+import * as Bezier from './bezier.interface'
+import * as Chunk from './chunk.interface'
 
 @ApiTags('流程图模块')
 @Controller('flow-chart')
@@ -21,8 +23,8 @@ export class FlowChartController {
 		operation: { summary: '创建流程图' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpChartCreate(@Body() body: DTO.IChartCreate) {
-		return await this.chartService.httpChartCreate(body)
+	public async httpCreateChart(@Body() body: Chart.ICreate) {
+		return await this.chartService.httpCreateChart(body)
 	}
 
 	@Put('/update')
@@ -30,25 +32,25 @@ export class FlowChartController {
 		operation: { summary: '修改流程图' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpChartUpdate(@Body() body: DTO.IChartUpdate) {
-		return await this.chartService.httpChartUpdate(body)
+	public async httpUpdateChart(@Body() body: Chart.IUpdate) {
+		return await this.chartService.httpUpdateChart(body)
 	}
 
 	@Get('/column')
 	@ApiCompute({
 		operation: { summary: '流程图列表' },
-		response: { status: 200, description: 'OK', type: DTO.RChart }
+		response: { status: 200, description: 'OK', type: Chart.RChart }
 	})
-	public async httpColumnChart(@Query() query: DTO.IChartColumn) {
+	public async httpColumnChart(@Query() query: Chart.IColumn) {
 		return await this.chartService.httpColumnChart(query)
 	}
 
 	@Get('/one')
 	@ApiCompute({
 		operation: { summary: '流程图详情' },
-		response: { status: 200, description: 'OK', type: DTO.IChart }
+		response: { status: 200, description: 'OK', type: Chart.IChart }
 	})
-	public async httpOneChart(@Query() query: DTO.IChartOne) {
+	public async httpOneChart(@Query() query: Chart.IOne) {
 		return await this.chartService.httpOneChart(query)
 	}
 
@@ -57,8 +59,8 @@ export class FlowChartController {
 		operation: { summary: '创建节点块' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpChunkCreate(@Body() body: DTO.IChunkCreate) {
-		return await this.chunkService.httpChunkCreate(body)
+	public async httpCreateChunk(@Body() body: Chunk.ICreate) {
+		return await this.chunkService.httpCreateChunk(body)
 	}
 
 	@Put('/update-chunk')
@@ -66,16 +68,16 @@ export class FlowChartController {
 		operation: { summary: '修改节点块' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpChunkUpdate(@Body() body: DTO.IChunkUpdate) {
-		return await this.chunkService.httpChunkUpdate(body)
+	public async httpUpdateChunk(@Body() body: Chunk.IUpdate) {
+		return await this.chunkService.httpUpdateChunk(body)
 	}
 
 	@Get('/one-chunk')
 	@ApiCompute({
 		operation: { summary: '节点块详情' },
-		response: { status: 200, description: 'OK', type: DTO.IChunk }
+		response: { status: 200, description: 'OK', type: Chunk.IChunk }
 	})
-	public async httpOneChunk(@Query() query: DTO.IChunkOne) {
+	public async httpOneChunk(@Query() query: Chunk.IOne) {
 		return await this.chunkService.httpOneChunk(query)
 	}
 
@@ -84,8 +86,8 @@ export class FlowChartController {
 		operation: { summary: '创建连接线' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpBezierCreate(@Body() body: DTO.IBezierCreate) {
-		return await this.bezierService.httpBezierCreate(body)
+	public async httpCreateBezier(@Body() body: Bezier.ICreate) {
+		return await this.bezierService.httpCreateBezier(body)
 	}
 
 	@Put('/update-bezier')
@@ -93,16 +95,16 @@ export class FlowChartController {
 		operation: { summary: '修改连接线' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpBezierUpdate(@Body() body: DTO.IBezierUpdate) {
-		return await this.bezierService.httpBezierUpdate(body)
+	public async httpUpdateBezier(@Body() body: Bezier.IUpdate) {
+		return await this.bezierService.httpUpdateBezier(body)
 	}
 
 	@Get('/one-bezier')
 	@ApiCompute({
 		operation: { summary: '连接线信息' },
-		response: { status: 200, description: 'OK', type: DTO.IBezier }
+		response: { status: 200, description: 'OK', type: Bezier.IBezier }
 	})
-	public async httpOneBezier(@Query() query: DTO.IBezierOne) {
+	public async httpOneBezier(@Query() query: Bezier.IOne) {
 		return await this.bezierService.httpOneBezier(query)
 	}
 }

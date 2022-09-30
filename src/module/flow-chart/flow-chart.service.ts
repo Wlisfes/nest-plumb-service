@@ -10,7 +10,7 @@ export class FlowChartService extends CoreService {
 	}
 
 	/**创建流程图**/
-	public async httpChartCreate(props: DTO.IChartCreate) {
+	public async httpCreateChart(props: DTO.ICreate) {
 		try {
 			const node = await this.entity.chartModel.create({
 				title: props.title,
@@ -26,7 +26,7 @@ export class FlowChartService extends CoreService {
 	}
 
 	/**修改流程图**/
-	public async httpChartUpdate(props: DTO.IChartUpdate) {
+	public async httpUpdateChart(props: DTO.IUpdate) {
 		try {
 			const node = await this.validator({
 				message: '流程图',
@@ -51,7 +51,7 @@ export class FlowChartService extends CoreService {
 	}
 
 	/**流程图列表**/
-	public async httpColumnChart(props: DTO.IChartColumn) {
+	public async httpColumnChart(props: DTO.IColumn) {
 		try {
 			const [list = [], total = 0] = await this.entity.chartModel.findAndCount({
 				order: { createTime: 'DESC' },
@@ -65,7 +65,7 @@ export class FlowChartService extends CoreService {
 	}
 
 	/**流程图信息**/
-	public async httpOneChart(props: DTO.IChartOne) {
+	public async httpOneChart(props: DTO.IOne) {
 		try {
 			return this.validator({
 				message: '流程图',

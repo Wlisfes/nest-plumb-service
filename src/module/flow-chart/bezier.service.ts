@@ -1,7 +1,7 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common'
 import { CoreService } from '@/core/core.service'
 import { EntityService } from '@/core/entity.service'
-import * as DTO from './flow-chart.interface'
+import * as DTO from './bezier.interface'
 
 @Injectable()
 export class BezierService extends CoreService {
@@ -10,7 +10,7 @@ export class BezierService extends CoreService {
 	}
 
 	/**创建连接线**/
-	public async httpBezierCreate(props: DTO.IBezierCreate) {
+	public async httpCreateBezier(props: DTO.ICreate) {
 		try {
 			const chart = await this.validator({
 				message: '流程图',
@@ -35,7 +35,7 @@ export class BezierService extends CoreService {
 	}
 
 	/**修改连接线**/
-	public async httpBezierUpdate(props: DTO.IBezierUpdate) {
+	public async httpUpdateBezier(props: DTO.IUpdate) {
 		try {
 			const node = await this.validator({
 				message: '连接线',
@@ -60,7 +60,7 @@ export class BezierService extends CoreService {
 	}
 
 	/**连接线信息**/
-	public async httpOneBezier(props: DTO.IBezierOne) {
+	public async httpOneBezier(props: DTO.IOne) {
 		try {
 			return this.validator({
 				message: '连接线',
