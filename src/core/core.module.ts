@@ -1,6 +1,7 @@
 import { Module, Global } from '@nestjs/common'
 import { CoreService } from './core.service'
 import { EntityService } from './entity.service'
+import { RedisService } from './redis.service'
 //entity
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ChartEntity } from '@/entity/chart.entity'
@@ -18,7 +19,7 @@ import { FlowChartModule } from '@/module/flow-chart/flow-chart.module'
 		UploadModule,
 		FlowChartModule
 	],
-	providers: [CoreService, EntityService],
-	exports: [CoreService, EntityService]
+	providers: [CoreService, EntityService, RedisService],
+	exports: [CoreService, EntityService, RedisService]
 })
 export class CoreModule {}

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { RedisModule } from '@nestjs-modules/ioredis'
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core'
 import { TransformInterceptor } from '@/interceptor/transform.interceptor'
 import { HttpExceptionFilter } from '@/filter/http-exception.filter'
@@ -11,6 +12,20 @@ import { CoreModule } from '@/core/core.module'
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true }),
+		RedisModule.forRootAsync({
+			inject: [ConfigService],
+			useFactory: (config: ConfigService) => {
+				return {
+					config: {
+						host: config.get('REDIS_HOST'),
+						port: parseInt(config.get('REDIS_PORT')),
+						password: config.get('REDIS_PASSWORD'),
+						db: parseInt(config.get('REDIS_DB')),
+						lazyConnect: true
+					}
+				}
+			}
+		}),
 		TypeOrmModule.forRootAsync({
 			inject: [ConfigService],
 			useFactory: (config: ConfigService) => {
