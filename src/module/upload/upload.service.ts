@@ -12,7 +12,7 @@ export class UploadService extends CoreService {
 	}
 
 	/**上传文件**/
-	public async fileCreate(files: Array<Express.Multer.File>) {
+	public async httpCreateFile(files: Array<Express.Multer.File>) {
 		try {
 			if (files.length === 0) {
 				throw new HttpException('File 不能为空', HttpStatus.BAD_REQUEST)
@@ -39,7 +39,7 @@ export class UploadService extends CoreService {
 	}
 
 	/**文件列表**/
-	public async fileColumn(props: DTO.IColumn) {
+	public async httpColumnFile(props: DTO.IColumn) {
 		try {
 			const [list = [], total = 0] = await this.entity.fileModel
 				.createQueryBuilder('t')
@@ -60,7 +60,7 @@ export class UploadService extends CoreService {
 	}
 
 	/**文件详情**/
-	public async fileOne(props: DTO.IOne) {
+	public async httpOneFile(props: DTO.IOne) {
 		try {
 			return await this.validator({
 				message: '文件',

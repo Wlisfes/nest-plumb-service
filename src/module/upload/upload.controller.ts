@@ -16,19 +16,19 @@ export class UploadController {
 	@UseInterceptors(AnyFilesInterceptor())
 	@ApiCompute({
 		operation: { summary: '上传文件' },
-		response: { status: 200, description: 'OK', type: DTO.IUpload }
+		response: { status: 200, description: 'OK', type: [DTO.IUpload] }
 	})
-	public async fileCreate(@UploadedFiles() files: Array<Express.Multer.File> = []) {
-		return await this.uploadService.fileCreate(files)
+	public async httpCreateFile(@UploadedFiles() files: Array<Express.Multer.File> = []) {
+		return await this.uploadService.httpCreateFile(files)
 	}
 
 	@Get('/file-column')
 	@ApiCompute({
 		operation: { summary: '文件列表' },
-		response: { status: 200, description: 'OK', type: DTO.RColumn }
+		response: { status: 200, description: 'OK', type: DTO.RUoload }
 	})
-	public async fileColumn(@Query() query: DTO.IColumn) {
-		return await this.uploadService.fileColumn(query)
+	public async httpColumnFile(@Query() query: DTO.IColumn) {
+		return await this.uploadService.httpColumnFile(query)
 	}
 
 	@Get('/file-one')
@@ -36,7 +36,7 @@ export class UploadController {
 		operation: { summary: '文件详情' },
 		response: { status: 200, description: 'OK', type: DTO.IUpload }
 	})
-	public async fileOne(@Query() query: DTO.IOne) {
-		return await this.uploadService.fileOne(query)
+	public async httpOneFile(@Query() query: DTO.IOne) {
+		return await this.uploadService.httpOneFile(query)
 	}
 }

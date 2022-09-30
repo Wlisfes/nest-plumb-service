@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional, PickType } from '@nestjs/swagger'
+import { ApiProperty, ApiPropertyOptional, PickType, IntersectionType } from '@nestjs/swagger'
 import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
 
@@ -18,20 +18,14 @@ export class IUpload extends PickType(ICommon, ['id', 'createTime', 'updateTime'
 	@ApiProperty({ description: '文件size' })
 	size: string
 
-	@ApiProperty({ description: '文件类型' })
-	suffix: string
-}
-
-/**文件列表**/
-export class IColumn extends PickType(ICommon, ['page', 'size']) {
-	@ApiPropertyOptional({ description: '文件类型', example: 'jpg' })
+	@ApiProperty({ description: '文件类型', example: 'jpg' })
 	@IsOptional({}, { string: true, number: true })
 	suffix: string
 }
-export class RColumn extends PickType(RCommon, ['page', 'size', 'total']) {
+export class RUoload extends PickType(RCommon, ['page', 'size', 'total']) {
 	@ApiProperty({ description: '列表', type: [IUpload], example: [] })
-	list: Array<IUpload>
+	list: IUpload[]
 }
 
-/**文件详情**/
 export class IOne extends PickType(ICommon, ['id']) {}
+export class IColumn extends IntersectionType(PickType(IUpload, ['suffix']), PickType(ICommon, ['page', 'size'])) {}
