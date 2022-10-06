@@ -11,13 +11,15 @@ import { FileEntity } from '@/entity/file.entity'
 //module
 import { UploadModule } from '@/module/upload/upload.module'
 import { FlowChartModule } from '@/module/flow-chart/flow-chart.module'
+import { WeChatModule } from '@/module/we-chat/we-chat.module'
 
 @Global()
 @Module({
 	imports: [
 		TypeOrmModule.forFeature([ChartEntity, ChunkEntity, BezierEntity, FileEntity]),
 		UploadModule,
-		FlowChartModule
+		FlowChartModule,
+		WeChatModule
 	],
 	providers: [CoreService, EntityService, RedisService],
 	exports: [CoreService, EntityService, RedisService]
