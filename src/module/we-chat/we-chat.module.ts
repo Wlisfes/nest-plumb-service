@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { HttpModule } from '@nestjs/axios'
 import { WeChatService } from './we-chat.service'
+import { WeChatController } from './we-chat.controller'
 
 @Module({
 	imports: [
@@ -9,6 +10,7 @@ import { WeChatService } from './we-chat.service'
 			timeout: 60000
 		})
 	],
-	providers: [WeChatService]
+	providers: [WeChatService],
+	controllers: [WeChatController]
 })
 export class WeChatModule {}
