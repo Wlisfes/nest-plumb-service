@@ -19,7 +19,7 @@ export class WeChatService extends CoreService {
 	}
 
 	/**获取小程序凭证**/
-	public async httpAccessToken() {
+	public async httpAccessToken(): Promise<DTO.RToken> {
 		try {
 			const token = await this.redis.getStore('access-token')
 			if (!token) {
