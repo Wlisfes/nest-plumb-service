@@ -4,11 +4,15 @@ import { InjectRedis, Redis } from '@nestjs-modules/ioredis'
 import { Observer } from './core.observer'
 import * as IoRedis from 'ioredis'
 
+export type RCommand = string | ((x: string) => boolean)
+export type ICommand = { cmd: string; key: string }
+export type IObserver = { message: ICommand }
+
 @Injectable()
 export class RedisService {
 	private done: unknown | undefined
-	private readonly observer: Observer<Record<string, unknown>> = new Observer()
-	private readonly trigger: Observer<Record<string, unknown>> = new Observer()
+	private readonly observer: Observer<IObserver> = new Observer()
+	private readonly trigger: Observer<IObserver> = new Observer()
 	constructor(private readonly config: ConfigService, @InjectRedis() private readonly client: Redis) {
 		this.initSubscribe().then(r => Logger.log(r))
 	}
@@ -39,20 +43,22 @@ export class RedisService {
 	}
 
 	/**条件筛查**/
-	private isCommand(command: string | ((x: string) => boolean), key: string) {
-		return (
-			(typeof command === 'string' && key.startsWith(command)) || (typeof command === 'function' && command(key))
-		)
+	private isCommand(command: RCommand, key: string) {
+		switch (typeof command) {
+			case 'string':
+				return key.startsWith(command)
+			case 'function':
+				return command(key)
+			default:
+				return false
+		}
 	}
 
 	/**开启订阅回调**/
-	public subscribe(
-		command: string | ((x: string) => boolean),
-		handler?: (e: { cmd: string; key: string }) => void
-	): Promise<Observer<Record<string, unknown>>> {
+	public subscribe(command: RCommand, handler?: (e: ICommand) => void): Promise<Observer<IObserver>> {
 		return new Promise(resolve => {
 			const { trigger, observer } = this
-			const onTrigger = (e: { cmd: string; key: string }) => {
+			const onTrigger = (e: ICommand) => {
 				if (this.isCommand(command, e.key)) {
 					handler?.(e)
 					observer.emit('message', e)
