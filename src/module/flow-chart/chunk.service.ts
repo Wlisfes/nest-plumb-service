@@ -8,11 +8,6 @@ import * as DTO from './chunk.interface'
 export class ChunkService extends CoreService {
 	constructor(private readonly entity: EntityService, private readonly redis: RedisService) {
 		super()
-		this.redis.subscribe('chunk').then(observer => {
-			observer.on('message', e => {
-				console.log('chart', e)
-			})
-		})
 	}
 
 	/**创建节点块**/

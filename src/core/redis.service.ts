@@ -38,12 +38,14 @@ export class RedisService {
 		})
 	}
 
+	/**条件筛查**/
 	private isCommand(command: string | ((x: string) => boolean), key: string) {
 		return (
 			(typeof command === 'string' && key.startsWith(command)) || (typeof command === 'function' && command(key))
 		)
 	}
 
+	/**开启订阅回调**/
 	public subscribe(
 		command: string | ((x: string) => boolean),
 		handler?: (e: { cmd: string; key: string }) => void
@@ -64,6 +66,7 @@ export class RedisService {
 		})
 	}
 
+	/**redis存储**/
 	public async setStore(key: string, data: any, seconds?: number) {
 		if (!seconds) {
 			return await this.client.set(key, JSON.stringify(data))
@@ -72,6 +75,7 @@ export class RedisService {
 		}
 	}
 
+	/**redis读取**/
 	public async getStore(key: string) {
 		const data = await this.client.get(key)
 		return data ? JSON.parse(data) : undefined

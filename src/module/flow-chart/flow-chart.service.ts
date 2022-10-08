@@ -8,11 +8,6 @@ import * as DTO from './flow-chart.interface'
 export class FlowChartService extends CoreService {
 	constructor(private readonly entity: EntityService, private readonly redis: RedisService) {
 		super()
-		this.redis.subscribe('user').then(observer => {
-			observer.on('message', e => {
-				console.log('chart', e)
-			})
-		})
 	}
 
 	/**创建流程图**/

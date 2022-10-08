@@ -8,11 +8,6 @@ import * as DTO from './bezier.interface'
 export class BezierService extends CoreService {
 	constructor(private readonly entity: EntityService, private readonly redis: RedisService) {
 		super()
-		this.redis.subscribe('bezier').then(observer => {
-			observer.on('message', e => {
-				console.log('chart', e)
-			})
-		})
 	}
 
 	/**创建连接线**/
