@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
-import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { RedisModule } from '@nestjs-modules/ioredis'
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core'
@@ -13,22 +12,6 @@ import { CoreModule } from '@/core/core.module'
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true }),
-		ScheduleModule.forRoot(),
-		RedisModule.forRootAsync({
-			inject: [ConfigService],
-			useFactory: (config: ConfigService) => {
-				return {
-					config: {
-						host: config.get('REDIS_HOST'),
-						port: parseInt(config.get('REDIS_PORT')),
-						password: config.get('REDIS_PASSWORD'),
-						db: parseInt(config.get('REDIS_DB')),
-						keyPrefix: config.get('REDIS_KEYPREFIX'),
-						lazyConnect: true
-					}
-				}
-			}
-		}),
 		TypeOrmModule.forRootAsync({
 			inject: [ConfigService],
 			useFactory: (config: ConfigService) => {
@@ -49,6 +32,21 @@ import { CoreModule } from '@/core/core.module'
 						queueTimeout: 60000,
 						pollPingInterval: 60,
 						pollTimeout: 60
+					}
+				}
+			}
+		}),
+		RedisModule.forRootAsync({
+			inject: [ConfigService],
+			useFactory: (config: ConfigService) => {
+				return {
+					config: {
+						host: config.get('REDIS_HOST'),
+						port: parseInt(config.get('REDIS_PORT')),
+						password: config.get('REDIS_PASSWORD'),
+						db: parseInt(config.get('REDIS_DB')),
+						keyPrefix: config.get('REDIS_KEYPREFIX'),
+						lazyConnect: true
 					}
 				}
 			}

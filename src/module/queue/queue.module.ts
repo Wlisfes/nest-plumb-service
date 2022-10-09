@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { BullModule } from '@nestjs/bull'
 import { QueueService } from './queue.service'
+import { CloudConsumer } from './queue.consumer'
 
 @Module({
 	imports: [
@@ -18,8 +19,9 @@ import { QueueService } from './queue.service'
 					}
 				}
 			}
-		})
+		}),
+		BullModule.registerQueue({ name: 'cloud-queue' })
 	],
-	providers: [QueueService]
+	providers: [QueueService, CloudConsumer]
 })
 export class QueueModule {}
