@@ -22,6 +22,7 @@ import { CloudConsumer } from './queue.consumer'
 		}),
 		BullModule.registerQueue({ name: 'cloud-queue' })
 	],
-	providers: [QueueService, CloudConsumer]
+	providers: [QueueService, CloudConsumer],
+	exports: [QueueService]
 })
 export class QueueModule {}

@@ -6,8 +6,10 @@ import { InjectQueue } from '@nestjs/bull'
 export class QueueService {
 	constructor(@InjectQueue('cloud-queue') private readonly cloudQueue: Queue) {}
 
-	public async httpCreate() {
+	/**写入任务队列**/
+	public async httpCreate(index: number) {
 		return await this.cloudQueue.add({
+			index,
 			time: Date.now()
 		})
 	}
