@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ScheduleModule } from '@nestjs/schedule'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { RedisModule } from '@nestjs-modules/ioredis'
 import { APP_INTERCEPTOR, APP_FILTER } from '@nestjs/core'
@@ -12,6 +13,7 @@ import { CoreModule } from '@/core/core.module'
 @Module({
 	imports: [
 		ConfigModule.forRoot({ isGlobal: true }),
+		ScheduleModule.forRoot(),
 		RedisModule.forRootAsync({
 			inject: [ConfigService],
 			useFactory: (config: ConfigService) => {
