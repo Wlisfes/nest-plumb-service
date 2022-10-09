@@ -23,6 +23,7 @@ import { CoreModule } from '@/core/core.module'
 						port: parseInt(config.get('REDIS_PORT')),
 						password: config.get('REDIS_PASSWORD'),
 						db: parseInt(config.get('REDIS_DB')),
+						keyPrefix: config.get('REDIS_KEYPREFIX'),
 						lazyConnect: true
 					}
 				}
