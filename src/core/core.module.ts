@@ -9,6 +9,9 @@ import { ChartEntity } from '@/entity/chart.entity'
 import { ChunkEntity } from '@/entity/chunk.entity'
 import { BezierEntity } from '@/entity/bezier.entity'
 import { FileEntity } from '@/entity/file.entity'
+import { flowChartEntity } from '@/entity/flow-chart.entity'
+import { ColumnEntity } from '@/entity/flow-chart-column.entity'
+import { lineEntity } from '@/entity/flow-chart-line.entity'
 //module
 import { QueueModule } from '@/module/queue/queue.module'
 import { DispatchModule } from '@/module/dispatch/dispatch.module'
@@ -19,7 +22,15 @@ import { WeChatModule } from '@/module/we-chat/we-chat.module'
 @Global()
 @Module({
 	imports: [
-		TypeOrmModule.forFeature([ChartEntity, ChunkEntity, BezierEntity, FileEntity]),
+		TypeOrmModule.forFeature([
+			ChartEntity,
+			ChunkEntity,
+			BezierEntity,
+			FileEntity,
+			flowChartEntity,
+			ColumnEntity,
+			lineEntity
+		]),
 		QueueModule,
 		DispatchModule,
 		UploadModule,
