@@ -25,12 +25,6 @@ export class ColumnEntity extends UEntity {
 	@Column({ comment: '顶层节点: 0.普通节点 1.顶层节点', default: 0, nullable: false })
 	root: number
 
-	@Column({ comment: '节点类型: EMAIL、TRIGGER、TARGET、BIND_TASK、AUTO_MATIC、CREATE_TRIGGER', nullable: false })
-	type: string
-
-	@Column('simple-array', { comment: '可连接类型列表', nullable: true })
-	connect: Array<Object>
-
 	@Column('simple-json', { comment: '节点数据', nullable: false })
 	current: Object
 

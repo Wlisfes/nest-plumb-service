@@ -22,3 +22,13 @@ export function ApiCompute(option?: Option) {
 
 	return applyDecorators(...decorator)
 }
+
+export function toArrayString({ value }) {
+	if (value && Array.isArray(value)) {
+		return value
+	} else if (value && typeof value !== 'string') {
+		return value.split(',').map(k => String(k)) || []
+	} else {
+		return []
+	}
+}
