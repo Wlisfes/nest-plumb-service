@@ -27,7 +27,18 @@ export class FlowChartController {
 		operation: { summary: '创建节点' },
 		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
 	})
-	public async httpCreateNode(@Body() body: INode.ICreate) {}
+	public async httpCreateNode(@Body() body: INode.ICreate) {
+		return await this.nodeService.httpCreateNode(body)
+	}
+
+	@Get('/column-node')
+	@ApiCompute({
+		operation: { summary: '节点列表' },
+		response: { status: 200, description: 'OK', type: INode.RColumn }
+	})
+	public async httpColumnNode(@Query() query: Chart.IColumn) {
+		return await this.nodeService.httpColumnNode(query)
+	}
 
 	// @Post('/create')
 	// @ApiCompute({

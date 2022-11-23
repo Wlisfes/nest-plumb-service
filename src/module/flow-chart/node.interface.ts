@@ -1,9 +1,25 @@
-import { ApiProperty, PickType, OmitType } from '@nestjs/swagger'
+import { ApiProperty, PickType, OmitType, IntersectionType } from '@nestjs/swagger'
 import { IsNotEmpty, IsNumber, IsString, IsArray, ValidateNested } from 'class-validator'
 import { Type, Transform } from 'class-transformer'
-import { ICommon } from '@/interface/common.interface'
+import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
 import { toArrayString } from '@/decorator/compute.decorator'
+
+export class IRule {
+	@ApiProperty({ required: false, description: '规则UID', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
+	uid: string
+
+	@ApiProperty({ required: false, description: '规则名称' })
+	content: string
+
+	@ApiProperty({ required: false, description: '规则状态', example: 1 })
+	@Type(type => Number)
+	max: number
+
+	@ApiProperty({ required: false, description: '规则最大分支', example: 1 })
+	@Type(type => Number)
+	visible: number
+}
 
 export class INode extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '流程图初始节点UID', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
@@ -53,6 +69,15 @@ export class INode extends OmitType(ICommon, ['page', 'size']) {
 	rules: Array<Object>
 }
 
-export class ICreate extends PickType(INode, ['name', 'icon', 'delete', 'root', 'type', 'connect', 'rules']) {}
+export class RColumn extends PickType(RCommon, ['page', 'size', 'total']) {
+	@ApiProperty({ description: '列表', type: [INode], example: [] })
+	list: INode[]
+}
+
+export class ICreate extends IntersectionType(
+	PickType(INode, ['name', 'icon', 'delete', 'root', 'status']),
+	PickType(INode, ['max', 'type', 'connect', 'rules'])
+) {}
 export class IUpdate extends PickType(INode, ['uid']) {}
 export class IOne extends PickType(INode, ['uid']) {}
+export class IColumn extends PickType(ICommon, ['page', 'size']) {}
