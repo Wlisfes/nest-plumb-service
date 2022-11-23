@@ -15,6 +15,9 @@ export class NodeEntity extends UEntity {
 	@Column({ comment: '状态: 0.关闭 1.开启', default: 1, nullable: false })
 	status: number
 
+	@Column({ comment: '最大连接数: -1.不限制 0.关闭 1.连接数', default: -1, nullable: false })
+	max: number
+
 	@Column({ comment: '删除开关: 0.关闭 1.开启', default: 1, nullable: false })
 	delete: number
 

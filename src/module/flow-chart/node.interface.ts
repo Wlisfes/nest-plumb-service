@@ -30,6 +30,12 @@ export class INode extends OmitType(ICommon, ['page', 'size']) {
 	@Type(type => Number)
 	root: number
 
+	@ApiProperty({ description: '节点最大连接数: -1.不限制 0.关闭 1.连接数', example: -1 })
+	@IsNotEmpty({ message: '最大连接数 必填' })
+	@IsNumber({}, { message: '最大连接数 必须是数字' })
+	@Type(type => Number)
+	max: number
+
 	@ApiProperty({ description: '节点类型: EMAIL、TRIGGER、TARGET、BIND_TASK、AUTO_MATIC、CREATE_TRIGGER' })
 	@IsNotEmpty({ message: '节点类型 必填' })
 	type: string
@@ -47,6 +53,6 @@ export class INode extends OmitType(ICommon, ['page', 'size']) {
 	rules: Array<Object>
 }
 
-export class ICreate extends PickType(INode, ['uid', 'name', 'icon', 'delete', 'root', 'type', 'connect', 'rules']) {}
+export class ICreate extends PickType(INode, ['name', 'icon', 'delete', 'root', 'type', 'connect', 'rules']) {}
 export class IUpdate extends PickType(INode, ['uid']) {}
 export class IOne extends PickType(INode, ['uid']) {}
