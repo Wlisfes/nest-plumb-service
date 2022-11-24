@@ -4,27 +4,31 @@ import { ICommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
 
 export class IBezier extends OmitType(ICommon, ['page', 'size']) {
-	@ApiProperty({ description: '流程图uid', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
+	@ApiProperty({ description: '流程块UID' })
+	@IsNotEmpty({ message: '流程块UID 必填' })
+	uid: string
+
+	@ApiProperty({ description: '流程图uid' })
 	@IsNotEmpty({ message: '流程图uid 必填' })
-	chart: string
+	flow: string
 
-	@ApiProperty({ description: '连接线标题', example: '刀剑神域' })
-	@IsNotEmpty({ message: '连接线标题 必填' })
-	title: string
+	@ApiProperty({ required: false, description: '连接线标题', example: '刀剑神域' })
+	@IsOptional()
+	label: string
 
-	@ApiProperty({ description: '起点uid', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
-	@IsNotEmpty({ message: '起点uid 必填' })
+	@ApiProperty({ description: '起点块节点UID' })
+	@IsNotEmpty({ message: '起点块节点UID 必填' })
+	parent: string
+
+	@ApiProperty({ description: '起点规则点UID' })
+	@IsNotEmpty({ message: '起点规则点UID 必填' })
 	source: string
 
-	@ApiProperty({ description: '终点uid', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
-	@IsNotEmpty({ message: '终点uid 必填' })
+	@ApiProperty({ description: '终点块节点UID' })
+	@IsNotEmpty({ message: '终点块节点UID 必填' })
 	target: string
-
-	@ApiProperty({ description: '节点数据', example: {} })
-	@IsOptional()
-	node: Object
 }
 
-export class ICreate extends PickType(IBezier, ['title', 'source', 'target', 'node', 'chart']) {}
-export class IUpdate extends PickType(IBezier, ['uid', 'title', 'source', 'target', 'node']) {}
+export class ICreate extends PickType(IBezier, ['uid', 'flow', 'parent', 'source', 'target', 'label']) {}
+export class IUpdate extends PickType(IBezier, []) {}
 export class IOne extends PickType(IBezier, ['uid']) {}

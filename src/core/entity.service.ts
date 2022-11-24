@@ -4,7 +4,6 @@ import { Repository } from 'typeorm'
 import { FileEntity } from '@/entity/file.entity'
 import { ChartEntity } from '@/entity/chart.entity'
 import { ChunkEntity } from '@/entity/chunk.entity'
-import { BezierEntity } from '@/entity/bezier.entity'
 import { flowChartEntity } from '@/entity/flow-chart.entity'
 import { NodeEntity } from '@/entity/flow-chart-node.entity'
 import { ColumnEntity } from '@/entity/flow-chart-column.entity'
@@ -16,10 +15,9 @@ export class EntityService {
 		@InjectRepository(FileEntity) public readonly fileModel: Repository<FileEntity>,
 		@InjectRepository(ChartEntity) public readonly chartModel: Repository<ChartEntity>,
 		@InjectRepository(ChunkEntity) public readonly chunkModel: Repository<ChunkEntity>,
-		@InjectRepository(BezierEntity) public readonly bezierModel: Repository<BezierEntity>,
+		@InjectRepository(lineEntity) public readonly bezierModel: Repository<lineEntity>,
 		@InjectRepository(flowChartEntity) public readonly flowChartModel: Repository<flowChartEntity>,
 		@InjectRepository(NodeEntity) public readonly nodeModel: Repository<NodeEntity>,
-		@InjectRepository(ColumnEntity) public readonly columnModel: Repository<ColumnEntity>,
-		@InjectRepository(lineEntity) public readonly lineModel: Repository<lineEntity>
+		@InjectRepository(ColumnEntity) public readonly columnModel: Repository<ColumnEntity>
 	) {}
 }

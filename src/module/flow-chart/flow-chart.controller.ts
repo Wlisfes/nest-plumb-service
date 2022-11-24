@@ -107,14 +107,14 @@ export class FlowChartController {
 	// 	return await this.chunkService.httpOneChunk(query)
 	// }
 
-	// @Post('/create-bezier')
-	// @ApiCompute({
-	// 	operation: { summary: '创建连接线' },
-	// 	response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
-	// })
-	// public async httpCreateBezier(@Body() body: Bezier.ICreate) {
-	// 	return await this.bezierService.httpCreateBezier(body)
-	// }
+	@Post('/create-bezier')
+	@ApiCompute({
+		operation: { summary: '创建连接线' },
+		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
+	})
+	public async httpCreateBezier(@Body() body: Bezier.ICreate) {
+		return await this.bezierService.httpCreateBezier(body)
+	}
 
 	// @Put('/update-bezier')
 	// @ApiCompute({
