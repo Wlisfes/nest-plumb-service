@@ -12,8 +12,8 @@ export class NodeEntity extends UEntity {
 	@Column({ nullable: false, comment: '流程块图标' })
 	icon: string
 
-	@Column({ comment: '状态: 0.关闭 1.开启', default: 1, nullable: false })
-	status: number
+	@Column({ comment: '状态: ENABLE.启用 DISABLE.禁用', default: 'ENABLE', nullable: false })
+	status: string
 
 	@Column({ comment: '最大连接数: -1.不限制 0.关闭 1.连接数', default: -1, nullable: false })
 	max: number

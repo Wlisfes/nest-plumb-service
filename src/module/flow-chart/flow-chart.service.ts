@@ -40,7 +40,7 @@ export class FlowChartService extends CoreService {
 				{ uid: node.uid },
 				{
 					title: props.title ?? node.title,
-					status: props.status ?? node.status,
+					// status: props.status ?? node.status,
 					core: props.core ?? node.core,
 					axis: props.axis ?? node.axis
 				}

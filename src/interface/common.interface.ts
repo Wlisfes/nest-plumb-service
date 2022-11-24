@@ -37,11 +37,9 @@ export class ICommon {
 	@Type(type => Number)
 	size: number
 
-	@ApiProperty({ description: '状态', example: 1 })
-	@IsNotEmpty({ message: 'status 必填' })
-	@IsNumber({}, { message: 'status 必须是数字' })
-	@Type(type => Number)
-	status: number
+	@ApiProperty({ description: '状态: ENABLE.启用 DISABLE.禁用' })
+	@IsNotEmpty({ message: '状态 必填' })
+	status: string
 }
 
 export class RCommon {
