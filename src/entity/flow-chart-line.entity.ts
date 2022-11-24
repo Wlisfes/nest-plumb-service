@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne } from 'typeorm'
-import { UEntity } from '@/entity/common.entity'
+import { BaseEntity } from '@/entity/common.entity'
 import { flowChartEntity } from '@/entity/flow-chart.entity'
 
 @Entity('flow-chart-line')
-export class lineEntity extends UEntity {
+export class lineEntity extends BaseEntity {
 	@Column({ nullable: false, comment: '连接线UID' })
 	uid: string
 

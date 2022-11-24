@@ -1,9 +1,9 @@
 import { Entity, Column, ManyToOne } from 'typeorm'
-import { UEntity } from '@/entity/common.entity'
+import { BaseEntity } from '@/entity/common.entity'
 import { flowChartEntity } from '@/entity/flow-chart.entity'
 
 @Entity('flow-chart-column')
-export class ColumnEntity extends UEntity {
+export class ColumnEntity extends BaseEntity {
 	@Column({ nullable: false, comment: '流程块UID' })
 	uid: string
 

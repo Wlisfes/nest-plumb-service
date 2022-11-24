@@ -40,14 +40,14 @@ export class FlowChartController {
 		return await this.nodeService.httpColumnNode(query)
 	}
 
-	// @Post('/create')
-	// @ApiCompute({
-	// 	operation: { summary: '创建流程图' },
-	// 	response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
-	// })
-	// public async httpCreateChart(@Body() body: Chart.ICreate) {
-	// 	return await this.chartService.httpCreateChart(body)
-	// }
+	@Post('/create')
+	@ApiCompute({
+		operation: { summary: '创建工作流' },
+		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
+	})
+	public async httpCreateChart(@Body() body: Chart.ICreate) {
+		return await this.chartService.httpCreateChart(body)
+	}
 
 	// @Put('/update')
 	// @ApiCompute({
@@ -58,23 +58,23 @@ export class FlowChartController {
 	// 	return await this.chartService.httpUpdateChart(body)
 	// }
 
-	// @Get('/column')
-	// @ApiCompute({
-	// 	operation: { summary: '流程图列表' },
-	// 	response: { status: 200, description: 'OK', type: Chart.RChart }
-	// })
-	// public async httpColumnChart(@Query() query: Chart.IColumn) {
-	// 	return await this.chartService.httpColumnChart(query)
-	// }
+	@Get('/column')
+	@ApiCompute({
+		operation: { summary: '工作流列表' },
+		response: { status: 200, description: 'OK', type: Chart.RColumn }
+	})
+	public async httpColumnChart(@Query() query: Chart.IColumn) {
+		return await this.chartService.httpColumnChart(query)
+	}
 
-	// @Get('/one')
-	// @ApiCompute({
-	// 	operation: { summary: '流程图详情' },
-	// 	response: { status: 200, description: 'OK', type: Chart.IChart }
-	// })
-	// public async httpOneChart(@Query() query: Chart.IOne) {
-	// 	return await this.chartService.httpOneChart(query)
-	// }
+	@Get('/one')
+	@ApiCompute({
+		operation: { summary: '流程图详情' },
+		response: { status: 200, description: 'OK', type: Chart.IChart }
+	})
+	public async httpOneChart(@Query() query: Chart.IOne) {
+		return await this.chartService.httpOneChart(query)
+	}
 
 	// @Post('/create-chunk')
 	// @ApiCompute({

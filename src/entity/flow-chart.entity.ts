@@ -1,21 +1,44 @@
 import { Entity, Column, OneToMany } from 'typeorm'
-import { UEntity } from '@/entity/common.entity'
+import { BaseEntity } from '@/entity/common.entity'
 import { lineEntity } from '@/entity/flow-chart-line.entity'
 import { ColumnEntity } from '@/entity/flow-chart-column.entity'
 
 @Entity('flow-chart')
-export class flowChartEntity extends UEntity {
-	@Column({ nullable: false, comment: '流程图标题' })
+export class flowChartEntity extends BaseEntity {
+	@Column({ nullable: false, comment: '工作流UID' })
+	uid: string
+
+	@Column({ nullable: false, comment: '工作流标题' })
 	title: string
 
-	@Column({ comment: '状态: 0.关闭 1.开启', default: 1, nullable: false })
-	status: number
+	@Column({ comment: '工作流封面', nullable: false })
+	cover: string
 
-	@Column('simple-json', { comment: '画布位置配置', nullable: false })
-	core: Object
+	@Column({ comment: '工作流类型: BIND_TASK、AUTO_MATIC、CREATE_TRIGGER', nullable: false })
+	type: string
 
-	@Column('simple-json', { comment: '刻度线配置', nullable: false })
-	axis: Object
+	@Column({ comment: '状态: ENABLE.启用 DISABLE.禁用', default: 'ENABLE', nullable: false })
+	status: string
+
+	@Column('simple-json', {
+		comment: '画布位置配置',
+		nullable: false,
+		transformer: {
+			from: value => JSON.parse(value),
+			to: value => value
+		}
+	})
+	core: { width: string; height: string; scale: number; offsetX: number; offsetY: number; x: number; y: number }
+
+	@Column('simple-json', {
+		comment: '刻度线配置',
+		nullable: false,
+		transformer: {
+			from: value => JSON.parse(value),
+			to: value => value
+		}
+	})
+	axis: { x: boolean; y: boolean }
 
 	@OneToMany(() => ColumnEntity, type => type.flow)
 	column: ColumnEntity[]

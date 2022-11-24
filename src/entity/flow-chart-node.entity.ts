@@ -1,8 +1,8 @@
 import { Entity, Column } from 'typeorm'
-import { UEntity } from '@/entity/common.entity'
+import { BaseEntity } from '@/entity/common.entity'
 
 @Entity('flow-chart-node')
-export class NodeEntity extends UEntity {
+export class NodeEntity extends BaseEntity {
 	@Column({ nullable: false, comment: '流程图初始节点UID' })
 	uid: string
 
@@ -28,7 +28,7 @@ export class NodeEntity extends UEntity {
 	type: string
 
 	@Column('simple-array', { comment: '可连接类型列表', nullable: true })
-	connect: Array<Object>
+	connect: string[]
 
 	@Column('simple-array', { comment: '规则列表', nullable: true })
 	rules: Array<Object>
