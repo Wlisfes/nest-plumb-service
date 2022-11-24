@@ -27,9 +27,9 @@ export class NodeEntity extends BaseEntity {
 	@Column({ comment: '节点类型: EMAIL、TRIGGER、TARGET、BIND_TASK、AUTO_MATIC、CREATE_TRIGGER', nullable: false })
 	type: string
 
-	@Column('simple-array', { comment: '可连接类型列表', nullable: true })
+	@Column('simple-json', { comment: '可连接类型列表', nullable: true })
 	connect: string[]
 
-	@Column('simple-array', { comment: '规则列表', nullable: true })
-	rules: Array<Object>
+	@Column('simple-json', { comment: '规则列表', nullable: true })
+	rules: Array<never>
 }

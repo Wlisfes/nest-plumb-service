@@ -14,6 +14,7 @@ export class NodeService extends CoreService {
 	public async httpCreateNode(props: HTTP.ICreate) {
 		try {
 			const node = await this.entity.nodeModel.create({
+				uid: v4(),
 				name: props.name,
 				icon: props.icon,
 				type: props.type,
@@ -22,7 +23,7 @@ export class NodeService extends CoreService {
 				root: props.root,
 				max: props.max,
 				status: props.status,
-				rules: (props.rules ?? []).map((x: HTTP.IRule) => ({ ...x, uid: x.uid || v4() })) as Array<Object>
+				rules: props.rules.map(x => ({ ...x, uid: x.uid ?? v4() })) as Array<never>
 			})
 			await this.entity.nodeModel.save(node)
 			return { message: '创建成功' }

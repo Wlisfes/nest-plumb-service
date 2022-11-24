@@ -5,19 +5,10 @@ import { ICommon, RCommon } from '@/interface/common.interface'
 import { IsOptional } from '@/decorator/common.decorator'
 import { toArrayString } from '@/decorator/compute.decorator'
 
-export class IRule {
-	@ApiProperty({ required: false, description: '规则UID', example: 'c21b35f3-d8c9-4b96-bdde-386b4fa705ec' })
-	uid: string
-
-	@ApiProperty({ required: false, description: '规则名称' })
+export interface IRule {
+	uid?: string
 	content: string
-
-	@ApiProperty({ required: false, description: '规则状态', example: 1 })
-	@Type(type => Number)
 	max: number
-
-	@ApiProperty({ required: false, description: '规则最大分支', example: 1 })
-	@Type(type => Number)
 	visible: number
 }
 
@@ -65,8 +56,7 @@ export class INode extends OmitType(ICommon, ['page', 'size']) {
 	@ApiProperty({ description: '规则列表', example: [] })
 	@IsOptional()
 	@IsArray({ message: '规则列表参数错误' })
-	@ValidateNested({ each: true, message: '规则列表参数错误' })
-	rules: Array<Object>
+	rules: IRule[]
 }
 
 export class RColumn extends PickType(RCommon, ['page', 'size', 'total']) {
