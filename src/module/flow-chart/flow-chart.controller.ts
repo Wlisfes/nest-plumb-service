@@ -6,11 +6,14 @@ import { FlowChartService } from './flow-chart.service'
 import { ChunkService } from './chunk.service'
 import { BezierService } from './bezier.service'
 import { NodeService } from './node.service'
+import { ColumnService } from './column.service'
 
 import * as Chart from './flow-chart.interface'
 import * as Bezier from './bezier.interface'
 import * as Chunk from './chunk.interface'
+
 import * as INode from './node.interface'
+import * as IColumn from './column.interface'
 
 @ApiTags('流程图模块')
 @Controller('flow-chart')
@@ -19,7 +22,8 @@ export class FlowChartController {
 		private readonly chartService: FlowChartService,
 		private readonly chunkService: ChunkService,
 		private readonly bezierService: BezierService,
-		private readonly nodeService: NodeService
+		private readonly nodeService: NodeService,
+		private readonly columnService: ColumnService
 	) {}
 
 	@Post('/create-node')
@@ -76,23 +80,23 @@ export class FlowChartController {
 		return await this.chartService.httpOneChart(query)
 	}
 
-	// @Post('/create-chunk')
-	// @ApiCompute({
-	// 	operation: { summary: '创建节点块' },
-	// 	response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
-	// })
-	// public async httpCreateChunk(@Body() body: Chunk.ICreate) {
-	// 	return await this.chunkService.httpCreateChunk(body)
-	// }
+	@Post('/create-column')
+	@ApiCompute({
+		operation: { summary: '创建节点块' },
+		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
+	})
+	public async httpCreateColumn(@Body() body: IColumn.ICreate) {
+		return await this.columnService.httpCreateColumn(body)
+	}
 
-	// @Put('/update-chunk')
-	// @ApiCompute({
-	// 	operation: { summary: '修改节点块' },
-	// 	response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
-	// })
-	// public async httpUpdateChunk(@Body() body: Chunk.IUpdate) {
-	// 	return await this.chunkService.httpUpdateChunk(body)
-	// }
+	@Put('/update-column')
+	@ApiCompute({
+		operation: { summary: '修改节点块' },
+		response: { status: 200, description: 'OK', type: PickType(RCommon, ['message']) }
+	})
+	public async httpUpdateColumn(@Body() body: IColumn.IUpdate) {
+		return await this.columnService.httpUpdateColumn(body)
+	}
 
 	// @Get('/one-chunk')
 	// @ApiCompute({

@@ -71,7 +71,6 @@ export class FlowChartService extends CoreService {
 	/**流程图信息**/
 	public async httpOneChart(props: HTTP.IOne) {
 		try {
-			console.log(props)
 			return this.validator({
 				message: '流程图',
 				empty: true,

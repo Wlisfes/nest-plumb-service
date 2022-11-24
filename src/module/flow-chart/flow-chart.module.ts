@@ -5,9 +5,10 @@ import { ChunkService } from './chunk.service'
 import { BezierService } from './bezier.service'
 
 import { NodeService } from './node.service'
+import { ColumnService } from './column.service'
 
 @Module({
 	controllers: [FlowChartController],
-	providers: [FlowChartService, ChunkService, BezierService, NodeService]
+	providers: [FlowChartService, ChunkService, BezierService, NodeService, ColumnService]
 })
 export class FlowChartModule {}

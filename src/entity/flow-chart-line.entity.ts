@@ -10,8 +10,8 @@ export class lineEntity extends BaseEntity {
 	@Column({ nullable: false, comment: '连接线标题' })
 	label: string
 
-	@Column({ comment: '状态: 0.关闭 1.开启', default: 1, nullable: false })
-	status: number
+	@Column({ comment: '状态: ENABLE.启用 DISABLE.禁用', default: 'ENABLE', nullable: false })
+	status: string
 
 	@Column({ comment: '起点块节点UID', nullable: false })
 	parent: string
